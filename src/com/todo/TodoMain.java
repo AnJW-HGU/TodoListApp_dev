@@ -14,8 +14,9 @@ public class TodoMain {
 		TodoList l = new TodoList();
 		boolean isList = false;
 		boolean quit = false;
+		
+		Menu.displaymenu();
 		do {
-			Menu.displaymenu();
 			isList = false;
 			String choice = sc.next();
 			switch (choice) {
@@ -55,9 +56,13 @@ public class TodoMain {
 			case "exit":
 				quit = true;
 				break;
+			
+			case "help":
+				Menu.displaymenu();
+				break;
 
 			default:
-				System.out.println("please enter one of the above mentioned command");
+				System.out.println("정확한 명령어를 입력해주세요. (명령어 다시 보기 - help)");
 				break;
 			}
 			

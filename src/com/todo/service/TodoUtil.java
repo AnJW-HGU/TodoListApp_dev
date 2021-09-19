@@ -12,17 +12,16 @@ public class TodoUtil {
 		String title, desc;
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("\n"
-				+ "========== Create item Section\n"
-				+ "enter the title\n");
+		System.out.println("[할 일 추가]"
+				+ "\n제목 > ");
 		
 		title = sc.next();
 		if (list.isDuplicate(title)) {
-			System.out.printf("title can't be duplicate");
+			System.out.printf("- 동일한 제목의 일이 있습니다 !");
 			return;
 		}
 		
-		System.out.println("enter the description");
+		System.out.println("내용 > ");
 		desc = sc.next();
 		
 		TodoItem t = new TodoItem(title, desc);
@@ -33,10 +32,8 @@ public class TodoUtil {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("\n"
-				+ "========== Delete Item Section\n"
-				+ "enter the title of item to remove\n"
-				+ "\n");
+		System.out.println("[할 일 삭제]"
+				+ "\n삭제할 일의 제목 >");
 		
 		String title = sc.next();
 		
@@ -53,31 +50,30 @@ public class TodoUtil {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("\n"
-				+ "========== Edit Item Section\n"
-				+ "enter the title of the item you want to update\n"
-				+ "\n");
+		System.out.println("[할 일 수정]"
+				+ "\n수정할 일의 제목 >");
+		
 		String title = sc.next().trim();
 		if (!l.isDuplicate(title)) {
-			System.out.println("title doesn't exist");
+			System.out.println("- 해당 제목의 일이 존재하지 않습니다 !");
 			return;
 		}
 
-		System.out.println("enter the new title of the item");
+		System.out.println("새로운 일의 제목 > ");
 		String new_title = sc.next().trim();
 		if (l.isDuplicate(new_title)) {
-			System.out.println("title can't be duplicate");
+			System.out.println("- 동일한 제목의 일이 있습니다 !");
 			return;
 		}
 		
-		System.out.println("enter the new description ");
+		System.out.println("새로운 일의 내용 > ");
 		String new_description = sc.next().trim();
 		for (TodoItem item : l.getList()) {
 			if (item.getTitle().equals(title)) {
 				l.deleteItem(item);
 				TodoItem t = new TodoItem(new_title, new_description);
 				l.addItem(t);
-				System.out.println("item updated");
+				System.out.println("수정되었습니다.");
 			}
 		}
 
