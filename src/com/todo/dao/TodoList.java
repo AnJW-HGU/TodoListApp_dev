@@ -36,10 +36,9 @@ public class TodoList {
 	}
 
 	public void listAll() {
-		System.out.println("\n"
-				+ "inside list_All method\n");
+		System.out.println("[할 일 목록]");
 		for (TodoItem myitem : list) {
-			System.out.println(myitem.getTitle() + myitem.getDesc());
+			System.out.printf("[%s] %s - %s\n", myitem.getTitle(), myitem.getDesc(), myitem.getCurrent_date());
 		}
 	}
 	

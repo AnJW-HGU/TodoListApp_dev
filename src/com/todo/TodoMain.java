@@ -15,8 +15,10 @@ public class TodoMain {
 		boolean isList = false;
 		boolean quit = false;
 		
+		TodoUtil.loadList(l, "todolist.txt");
 		Menu.displaymenu();
 		do {
+			Menu.prompt();
 			isList = false;
 			String choice = sc.next();
 			switch (choice) {
@@ -40,16 +42,19 @@ public class TodoMain {
 			case "ls_name_asc":
 				l.sortByName();
 				isList = true;
+				System.out.println("제목순으로 정렬되었습니다.");
 				break;
 
 			case "ls_name_desc":
 				l.sortByName();
 				l.reverseList();
+				System.out.println("제목역순으로 정렬되었습니다.");
 				isList = true;
 				break;
 				
 			case "ls_date":
 				l.sortByDate();
+				System.out.println("날짜순으로 정렬되었습니다.");
 				isList = true;
 				break;
 
@@ -68,5 +73,6 @@ public class TodoMain {
 			
 			if(isList) l.listAll();
 		} while (!quit);
+		TodoUtil.saveList(l, "todolist.txt");
 	}
 }
