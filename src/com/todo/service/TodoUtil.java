@@ -24,7 +24,7 @@ public class TodoUtil {
 		
 		title = sc.next().trim();
 		if (list.isDuplicate(title)) {
-			System.out.printf("- 동일한 제목의 일이 있습니다 !");
+			System.out.println("- 동일한 제목의 일이 있습니다 !");
 			return;
 		}
 		
@@ -40,7 +40,7 @@ public class TodoUtil {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("[할 일 삭제]"
-				+ "\n삭제할 일의 제목 >");
+				+ "\n삭제할 일의 제목 > ");
 		
 		String title = sc.next().trim();
 		
@@ -59,7 +59,7 @@ public class TodoUtil {
 		Scanner sd = new Scanner(System.in);
 		
 		System.out.print("[할 일 수정]"
-				+ "\n수정할 일의 제목 >");
+				+ "\n수정할 일의 제목 > ");
 		
 		String title = sc.next().trim();
 		if (!l.isDuplicate(title)) {
