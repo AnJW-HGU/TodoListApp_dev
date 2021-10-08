@@ -180,6 +180,34 @@ public class TodoList {
 		return list;
 	}
 	
+	public ArrayList<TodoItem> getOrderedList(String orderby, int ordering) {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM list ORDER BY "+ orderby;
+			if (ordering == 0)
+				sql += " desc";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				String due_date = rs.getString("due_date");
+				String current_date = rs.getString("current_date");
+				TodoItem t = new TodoItem(category, title, description, due_date);
+				t.setId(id);
+				t.setCurrent_date(current_date);
+				list.add(t);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public int getCount() {
 		Statement stmt;
 		int count = 0;
@@ -196,51 +224,13 @@ public class TodoList {
 		return count;
 	}
 	
-//	public void sortByCategoty() {
-//		Set<String> set = new HashSet<String>();
-//		for (TodoItem item : list) {
-//			set.add(item.getCategory());
-//		}
-//		Iterator it = set.iterator();
-//		while(it.hasNext()) {
-//			System.out.print(it.next());
-//			if (it.hasNext()) System.out.print(" / ");
-//		}
-//		System.out.println("\n총 "+set.size()+"개의 카테고리가 등록되어있습니다.");
-//	}
-//	
-//	public void sortByName() {
-//		Collections.sort(list, new TodoSortByName());
-//	
-//	}
-//	
-//	public void listAll() {
-//		System.out.printf("[할 일 목록, 총 %d개]\n", l.getCount());
-//		int num = 1;
-//		for (TodoItem item : list) {
-//			System.out.printf(num+". [%s] %s - %s - %s - %s\n", item.getCategory(), item.getTitle(), item.getDesc(), item.getDue_date(), item.getCurrent_date());
-//			num++;
-//		}
-//	}
-//	
-//	public void reverseList() {
-//		Collections.reverse(list);
-//	}
-//	
-//	public void sortByDate() {
-//		Collections.sort(list, new TodoSortByDate());
-//	}
-//	
-//	public int indexOf(TodoItem t) {
-//		return list.indexOf(t);
-//	}
-//	
-//	public Boolean isDuplicate(String title) {
-//		for (TodoItem item : list) {
-//			if (title.equals(item.getTitle())) return true;
-//		}
-//		return false;
-//	}
+	
+	public Boolean isDuplicate(String title) {
+		for (TodoItem item : getList()) {
+			if (title.equals(item.getTitle())) return true;
+		}
+		return false;
+	}
    
 //   public void importData(String filename) {
 //      try {

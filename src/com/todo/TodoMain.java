@@ -9,23 +9,21 @@ import com.todo.service.TodoUtil;
 public class TodoMain {
    public static void start()
    {
-//      Scanner sc = new Scanner(System.in);
-//      TodoList l = new TodoList();
-//      l.importData("todolist.txt");
+//	  Scanner sc = new Scanner(System.in);
+//	  TodoList l = new TodoList();
+//	  l.importData("todolist.txt");
 	   
-	   	Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
-		boolean isList = false;
 		boolean quit = false;
 		String key;
 		
 		Menu.displaymenu();
 		do {
 			Menu.prompt();
-			isList = false;
 			String choice = sc.next();
 			switch (choice) {
-
+		
 			case "add":
 				TodoUtil.createItem(l);
 				break;
@@ -45,32 +43,26 @@ public class TodoMain {
 			case "ls_cate":
 				TodoUtil.listCateAll(l);
 				break;
-
-//			case "ls_name_asc":
-//				l.sortByName();
-//				isList = true;
-//				System.out.println("제목순으로 정렬되었습니다.");
-//				break;
-//
-//			case "ls_name_desc":
-//				l.sortByName();
-//				l.reverseList();
-//				System.out.println("제목역순으로 정렬되었습니다.");
-//				isList = true;
-//				break;
-//				
-//			case "ls_date":
-//				l.sortByDate();
-//				System.out.println("날짜순으로 정렬되었습니다.");
-//				isList = true;
-//				break;
-//				
-//			case "ls_date_desc":
-//				l.sortByDate();
-//				l.reverseList();
-//				System.out.println("날짜역순으로 정렬되었습니다.");
-//				isList = true;
-//				break;
+		
+			case "ls_name":
+				System.out.println("제목순으로 정렬되었습니다.");
+				TodoUtil.listAll(l, "title", 1);
+				break;
+		
+			case "ls_name_desc":
+				System.out.println("제목역순으로 정렬되었습니다.");
+				TodoUtil.listAll(l, "title", 0);
+				break;
+				
+			case "ls_date":
+				System.out.println("날짜순으로 정렬되었습니다.");
+				TodoUtil.listAll(l, "due_date", 1);
+				break;
+				
+			case "ls_date_desc":
+				System.out.println("날짜역순으로 정렬되었습니다.");
+				TodoUtil.listAll(l, "due_date", 0);
+				break;
 			
 			case "find":
 				key = sc.next().trim();
@@ -81,7 +73,7 @@ public class TodoMain {
 				key = sc.next();
 				TodoUtil.findCateList(l, key);
 				break;
-
+		
 			case "exit":
 				quit = true;
 				break;
@@ -89,7 +81,7 @@ public class TodoMain {
 			case "help":
 				Menu.displaymenu();
 				break;
-
+		
 			default:
 				System.out.println("정확한 명령어를 입력해주세요. (명령어 다시 보기 - help)");
 				break;
