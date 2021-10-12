@@ -61,7 +61,7 @@ public class TodoList {
 	}
 	
 	public int updateItem(TodoItem t) {
-		String sql = "update list set title=?, memo=?, category=?, current_date=?, due_date=?, is_completed = ?"
+		String sql = "update list set title=?, memo=?, category=?, current_date=?, due_date=?, is_completed=?"
 				+ " where id = ?;";
 		PreparedStatement pstmt;
 		int count = 0;
@@ -72,8 +72,8 @@ public class TodoList {
 			pstmt.setString(3, t.getCategory());
 			pstmt.setString(4, t.getCurrent_date());
 			pstmt.setString(5, t.getDue_date());
-			pstmt.setInt(6, t.getId());
-			pstmt.setInt(7, t.getIsCompleted());
+			pstmt.setInt(6, t.getIsCompleted());
+			pstmt.setInt(7, t.getId());
 			count = pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -84,6 +84,22 @@ public class TodoList {
 	
 	public int completeItem(int index) {
 		String sql = "update list set is_completed = 1"
+				+ " where id = ?;";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int completeDelItem(int index) {
+		String sql = "update list set is_completed = 0"
 				+ " where id = ?;";
 		PreparedStatement pstmt;
 		int count = 0;
@@ -160,7 +176,7 @@ public class TodoList {
 		Statement stmt;
 		try {
 			stmt = conn.createStatement();
-			String sql = "SELECT * FROM list WHERE is_completed = 1";
+			String sql = "SELECT * FROM list WHERE is_completed = " + is_completed;
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				int id = rs.getInt("id");
@@ -278,7 +294,7 @@ public class TodoList {
 		int count = 0;
 		try {
 			stmt = conn.createStatement();
-			String sql = "SELECT count(id) FROM list WHERE is_completed = 1;";
+			String sql = "SELECT count(id) FROM list WHERE is_completed = " + is_completed + ";";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			count = rs.getInt("count(id)");

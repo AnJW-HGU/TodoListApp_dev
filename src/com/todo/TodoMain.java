@@ -42,6 +42,11 @@ public class TodoMain {
 				TodoUtil.completeItem(l, index);
 				break;
 				
+			case "del_comp":
+				index = sc.nextInt();
+				TodoUtil.completeDelItem(l, index);
+				break;
+				
 			case "ls":
 				TodoUtil.listAll(l);
 				break;
@@ -52,6 +57,10 @@ public class TodoMain {
 				
 			case "ls_comp":
 				TodoUtil.listAll(l, 1);
+				break;
+				
+			case "ls_uncomp":
+				TodoUtil.listAll(l, 0);
 				break;
 		
 			case "ls_name":

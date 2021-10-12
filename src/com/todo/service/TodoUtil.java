@@ -62,17 +62,6 @@ public class TodoUtil {
 			System.out.println("삭제되지 않았습니다.");
 		}		
 	}
-	
-	public static void completeItem(TodoList l, int index) {		
-		System.out.println("[할 일 완료체크]");
-
-		if (l.completeItem(index) > 0) {
-			System.out.println("체크되었습니다.");
-		}
-		else {
-			System.out.println("체크되지 않았습니다.");
-		}		
-	}
 
 	public static void updateItem(TodoList l) {
 		
@@ -101,7 +90,10 @@ public class TodoUtil {
 		System.out.print("마감일자 > ");
 		new_due_date = sc.next().trim();
 		
-		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date, 0);
+		System.out.print("완료여부 (0 or 1) > ");
+		int new_is_completed = sc.nextInt();
+		
+		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date, new_is_completed);
 		t.setId(index);
 		if (l.updateItem(t) > 0) {
 			System.out.println("수정되었습니다.");
@@ -109,6 +101,28 @@ public class TodoUtil {
 		else {
 			System.out.println("수정되지 않았습니다.");
 		}
+	}
+	
+	public static void completeItem(TodoList l, int index) {		
+		System.out.println("[할 일 완료체크]");
+
+		if (l.completeItem(index) > 0) {
+			System.out.println("체크되었습니다.");
+		}
+		else {
+			System.out.println("체크되지 않았습니다.");
+		}		
+	}
+	
+	public static void completeDelItem(TodoList l, int index) {		
+		System.out.println("[할 일 완료체크 취소]");
+
+		if (l.completeDelItem(index) > 0) {
+			System.out.println("체크 취소되었습니다.");
+		}
+		else {
+			System.out.println("취소되지 않았습니다.");
+		}		
 	}
 	
 	public static void listAll(TodoList l) {
