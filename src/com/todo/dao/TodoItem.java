@@ -10,26 +10,25 @@ public class TodoItem {
     private String desc;
     private String due_date;
     private String current_date;
-    private int isCompleted;
+    private int is_completed;
 
 
-    public TodoItem(String cate, String title, String desc, String due_date, int isCompleted){
+    public TodoItem(String cate, String title, String desc, String due_date){
     	this.category=cate;
         this.title=title;
         this.desc=desc;
         this.due_date=due_date;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         this.current_date=simpleDateFormat.format(new Date());
-        this.isCompleted = isCompleted;
     }
     
-    public TodoItem(String cate, String title, String desc, String due_date, String current_date, int isCompleted){
+    public TodoItem(String cate, String title, String desc, String due_date, String current_date, int is_completed){
     	this.category=cate;
         this.title=title;
         this.desc=desc;
         this.due_date=due_date;
         this.current_date=current_date;
-        this.isCompleted = isCompleted;
+        this.is_completed = is_completed;
     }
     
     public int getId() {
@@ -81,21 +80,21 @@ public class TodoItem {
     }
     
     public int getIsCompleted() {
-    	return isCompleted;
+    	return is_completed;
     }
     
     public void setIsCompleted(int isCompleted) {
-    	this.isCompleted = isCompleted;
+    	this.is_completed = isCompleted;
     }
     
     public String toString() {
-    	if (isCompleted == 1)
+    	if (is_completed == 1)
     		return id + ". [" + category + "] " + title + "[V] - " + desc + " - " + due_date + " - " + current_date;
     	else
     		return id + ". [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
     }
     
     public String toSaveString() {
-    	return category + "##" + title + "##" + isCompleted + "##" + desc + "##" + due_date + "##" + current_date + "\n";
+    	return category + "##" + title + "##" + is_completed + "##" + desc + "##" + due_date + "##" + current_date + "\n";
     }
 }

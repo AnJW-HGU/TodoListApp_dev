@@ -25,7 +25,7 @@ public class TodoList {
    }
 
 	public int addItem(TodoItem t) {
-		String sql = "insert into list (title, memo, category, current_date, due_date, is_completed)"
+		String sql = "insert into list (title, memo, category, current_date, due_date)"
 				+ " values (?,?,?,?,?);";
 		PreparedStatement pstmt;
 		int count = 0;
@@ -36,7 +36,6 @@ public class TodoList {
 			pstmt.setString(3, t.getCategory());
 			pstmt.setString(4, t.getCurrent_date());
 			pstmt.setString(5, t.getDue_date());
-			pstmt.setInt(6,  t.getIsCompleted());
 			count = pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -61,7 +60,7 @@ public class TodoList {
 	}
 	
 	public int updateItem(TodoItem t) {
-		String sql = "update list set title=?, memo=?, category=?, current_date=?, due_date=?, is_completed=?"
+		String sql = "update list set title=?, memo=?, category=?, current_date=?, due_date=?"
 				+ " where id = ?;";
 		PreparedStatement pstmt;
 		int count = 0;
@@ -72,8 +71,7 @@ public class TodoList {
 			pstmt.setString(3, t.getCategory());
 			pstmt.setString(4, t.getCurrent_date());
 			pstmt.setString(5, t.getDue_date());
-			pstmt.setInt(6, t.getIsCompleted());
-			pstmt.setInt(7, t.getId());
+			pstmt.setInt(6, t.getId());
 			count = pstmt.executeUpdate();
 			pstmt.close();
 		} catch (SQLException e) {
@@ -128,8 +126,8 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				int isCompleted = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, isCompleted);
+				int is_completed = rs.getInt("is_completed");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
 				t.setId(id);
 				t.setCurrent_date(current_date);
 				list.add(t);
@@ -158,10 +156,9 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				int isCompleted = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, isCompleted);
+				int is_completed = rs.getInt("is_completed");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
 				t.setId(id);
-				t.setCurrent_date(current_date);
 				list.add(t);
 			}
 			pstmt.close();
@@ -185,10 +182,8 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				int isCompleted = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, isCompleted);
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
 				t.setId(id);
-				t.setCurrent_date(current_date);
 				list.add(t);
 			}
 			stmt.close();
@@ -231,10 +226,9 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				int isCompleted = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, isCompleted);
+				int is_completed = rs.getInt("is_completed");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
 				t.setId(id);
-				t.setCurrent_date(current_date);
 				list.add(t);
 			}
 			pstmt.close();
@@ -260,10 +254,9 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				int isCompleted = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, isCompleted);
+				int is_completed = rs.getInt("is_completed");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
 				t.setId(id);
-				t.setCurrent_date(current_date);
 				list.add(t);
 			}
 			stmt.close();

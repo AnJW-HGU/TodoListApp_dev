@@ -37,7 +37,7 @@ public class TodoUtil {
 		System.out.print("마감일자 > ");
 		due_date = sc.next().trim();
 		
-		TodoItem t = new TodoItem(category, title, desc, due_date, 0);
+		TodoItem t = new TodoItem(category, title, desc, due_date);
 		if (l.addItem(t) > 0) {
 			System.out.println("주가되었습니다.");
 		}
@@ -90,10 +90,7 @@ public class TodoUtil {
 		System.out.print("마감일자 > ");
 		new_due_date = sc.next().trim();
 		
-		System.out.print("완료여부 (0 or 1) > ");
-		int new_is_completed = sc.nextInt();
-		
-		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date, new_is_completed);
+		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date);
 		t.setId(index);
 		if (l.updateItem(t) > 0) {
 			System.out.println("수정되었습니다.");
