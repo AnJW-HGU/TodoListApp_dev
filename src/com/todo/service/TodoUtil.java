@@ -37,7 +37,7 @@ public class TodoUtil {
 		System.out.print("마감일자 > ");
 		due_date = sc.next().trim();
 		
-		TodoItem t = new TodoItem(category, title, desc, due_date);
+		TodoItem t = new TodoItem(category, title, desc, due_date, 0);
 		if (l.addItem(t) > 0) {
 			System.out.println("주가되었습니다.");
 		}
@@ -62,7 +62,17 @@ public class TodoUtil {
 			System.out.println("삭제되지 않았습니다.");
 		}		
 	}
+	
+	public static void completeItem(TodoList l, int index) {		
+		System.out.println("[할 일 완료체크]");
 
+		if (l.completeItem(index) > 0) {
+			System.out.println("체크되었습니다.");
+		}
+		else {
+			System.out.println("체크되지 않았습니다.");
+		}		
+	}
 
 	public static void updateItem(TodoList l) {
 		
@@ -91,7 +101,7 @@ public class TodoUtil {
 		System.out.print("마감일자 > ");
 		new_due_date = sc.next().trim();
 		
-		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date);
+		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date, 0);
 		t.setId(index);
 		if (l.updateItem(t) > 0) {
 			System.out.println("수정되었습니다.");
@@ -111,6 +121,13 @@ public class TodoUtil {
 	public static void listAll(TodoList l, String orderby, int ordering) {
 		System.out.printf("[전체 할 일, 총 %d개]\n", l.getCount());
 		for (TodoItem item : l.getOrderedList(orderby, ordering)) {
+			System.out.println(item.toString());
+		}
+	}
+	
+	public static void listAll(TodoList l, int isCompleted) {
+		System.out.printf("[전체 완료한 일, 총 %d개]\n", l.getCount(isCompleted));
+		for (TodoItem item : l.getList(isCompleted)) {
 			System.out.println(item.toString());
 		}
 	}

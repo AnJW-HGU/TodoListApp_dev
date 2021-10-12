@@ -17,6 +17,7 @@ public class TodoMain {
 		TodoList l = new TodoList();
 		boolean quit = false;
 		String key;
+		int index;
 		
 		Menu.displaymenu();
 		do {
@@ -36,12 +37,21 @@ public class TodoMain {
 				TodoUtil.updateItem(l);
 				break;
 				
+			case "comp":
+				index = sc.nextInt();
+				TodoUtil.completeItem(l, index);
+				break;
+				
 			case "ls":
 				TodoUtil.listAll(l);
 				break;
 				
 			case "ls_cate":
 				TodoUtil.listCateAll(l);
+				break;
+				
+			case "ls_comp":
+				TodoUtil.listAll(l, 1);
 				break;
 		
 			case "ls_name":

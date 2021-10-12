@@ -10,23 +10,26 @@ public class TodoItem {
     private String desc;
     private String due_date;
     private String current_date;
+    private int isCompleted;
 
 
-    public TodoItem(String cate, String title, String desc, String due_date){
+    public TodoItem(String cate, String title, String desc, String due_date, int isCompleted){
     	this.category=cate;
         this.title=title;
         this.desc=desc;
         this.due_date=due_date;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         this.current_date=simpleDateFormat.format(new Date());
+        this.isCompleted = isCompleted;
     }
     
-    public TodoItem(String cate, String title, String desc, String due_date, String current_date){
+    public TodoItem(String cate, String title, String desc, String due_date, String current_date, int isCompleted){
     	this.category=cate;
         this.title=title;
         this.desc=desc;
         this.due_date=due_date;
         this.current_date=current_date;
+        this.isCompleted = isCompleted;
     }
     
     public int getId() {
@@ -77,11 +80,22 @@ public class TodoItem {
         this.current_date = current_date;
     }
     
+    public int getIsCompleted() {
+    	return isCompleted;
+    }
+    
+    public void setIsCompleted(int isCompleted) {
+    	this.isCompleted = isCompleted;
+    }
+    
     public String toString() {
-    	return id + ". [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    	if (isCompleted == 1)
+    		return id + ". [" + category + "] " + title + "[V] - " + desc + " - " + due_date + " - " + current_date;
+    	else
+    		return id + ". [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
     }
     
     public String toSaveString() {
-    	return category + "##" + title + "##" + desc + "##" + due_date + "##" + current_date + "\n";
+    	return category + "##" + title + "##" + isCompleted + "##" + desc + "##" + due_date + "##" + current_date + "\n";
     }
 }
