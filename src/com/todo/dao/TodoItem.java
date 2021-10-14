@@ -11,6 +11,8 @@ public class TodoItem {
     private String due_date;
     private String current_date;
     private int is_completed;
+    private String time;
+    private String place;
 
 
     public TodoItem(String cate, String title, String desc, String due_date){
@@ -22,13 +24,15 @@ public class TodoItem {
         this.current_date=simpleDateFormat.format(new Date());
     }
     
-    public TodoItem(String cate, String title, String desc, String due_date, String current_date, int is_completed){
+    public TodoItem(String cate, String title, String desc, String due_date, String current_date, int is_completed, String time, String place){
     	this.category=cate;
         this.title=title;
         this.desc=desc;
         this.due_date=due_date;
         this.current_date=current_date;
         this.is_completed = is_completed;
+        this.time = time;
+        this.place = place;
     }
     
     public int getId() {
@@ -87,14 +91,33 @@ public class TodoItem {
     	this.is_completed = isCompleted;
     }
     
+    public String getTime() {
+    	return time;
+    }
+    
+    public void setTime(String time) {
+    	this.time = time;
+    }
+    
+    public String getPlace() {
+    	return place;
+    }
+    
+    public void setPlace(String place) {
+    	this.place = place;
+    }
+    
     public String toString() {
     	if (is_completed == 1)
-    		return id + ". [" + category + "] " + title + "[V] - " + desc + " - " + due_date + " - " + current_date;
+    		return id + ". [" + category + "] " + title + "[V] - " + time + " (" + place + ")\n"
+    			+ "\t" + desc + " - " + due_date + " - " + current_date;
     	else
-    		return id + ". [" + category + "] " + title + " - " + desc + " - " + due_date + " - " + current_date;
+    		return id + ". [" + category + "] " + title + " - " + time + " (" + place + ")\n"
+    			+ "\t" + desc + " - " + due_date + " - " + current_date;
     }
     
     public String toSaveString() {
-    	return category + "##" + title + "##" + is_completed + "##" + desc + "##" + due_date + "##" + current_date + "\n";
+    	return category + "##" + title + "##" + "##" + desc + "##" + due_date + "##" + current_date + "\n" 
+    		+ is_completed + "##" + time + "##" + place;
     }
 }

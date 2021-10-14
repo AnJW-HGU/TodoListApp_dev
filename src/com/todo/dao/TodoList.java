@@ -127,7 +127,9 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
+				String time = rs.getString("time");
+				String place = rs.getString("place");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
 				t.setId(id);
 				t.setCurrent_date(current_date);
 				list.add(t);
@@ -157,7 +159,9 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
+				String time = rs.getString("time");
+				String place = rs.getString("place");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
 				t.setId(id);
 				list.add(t);
 			}
@@ -182,7 +186,9 @@ public class TodoList {
 				String description = rs.getString("memo");
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
-				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
+				String time = rs.getString("time");
+				String place = rs.getString("place");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
 				t.setId(id);
 				list.add(t);
 			}
@@ -227,7 +233,9 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
+				String time = rs.getString("time");
+				String place = rs.getString("place");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
 				t.setId(id);
 				list.add(t);
 			}
@@ -255,7 +263,9 @@ public class TodoList {
 				String due_date = rs.getString("due_date");
 				String current_date = rs.getString("current_date");
 				int is_completed = rs.getInt("is_completed");
-				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed);
+				String time = rs.getString("time");
+				String place = rs.getString("place");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
 				t.setId(id);
 				list.add(t);
 			}
