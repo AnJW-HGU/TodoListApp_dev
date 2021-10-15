@@ -187,7 +187,7 @@ public class TodoUtil {
 	public static void completeItem(TodoList l, int index) {		
 		System.out.println("[할 일 완료체크]");
 
-		if (l.completeItem(index) > 0) {
+		if (l.completeItem(index, 1) > 0) {
 			System.out.println("체크되었습니다.");
 		}
 		else {
@@ -198,7 +198,7 @@ public class TodoUtil {
 	public static void completeDelItem(TodoList l, int index) {		
 		System.out.println("[할 일 완료체크 취소]");
 
-		if (l.completeDelItem(index) > 0) {
+		if (l.completeItem(index, 0) > 0) {
 			System.out.println("체크 취소되었습니다.");
 		}
 		else {

@@ -148,24 +148,8 @@ public class TodoList {
 		return count;
 	}
 	
-	public int completeItem(int index) {
-		String sql = "update list set is_completed = 1"
-				+ " where id = ?;";
-		PreparedStatement pstmt;
-		int count = 0;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, index);
-			count = pstmt.executeUpdate();
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return count;
-	}
-	
-	public int completeDelItem(int index) {
-		String sql = "update list set is_completed = 0"
+	public int completeItem(int index, int type) {
+		String sql = "update list set is_completed = " + type
 				+ " where id = ?;";
 		PreparedStatement pstmt;
 		int count = 0;
