@@ -6,6 +6,7 @@ public class Menu {
         System.out.println();
         System.out.println("<To Do List! 명령어>");
         System.out.println(" add - 할 일 추가");
+        System.out.println(" add_box - 할 일 보관함에 추가");
         System.out.println(" del - 할 일 삭제");
         System.out.println(" edit - 할 일 수정");
         
@@ -26,6 +27,7 @@ public class Menu {
         System.out.println(" ls_date - 날짜순 정렬");
         System.out.println(" ls_date_desc - 날짜역순 정렬");
         
+        System.out.println(" ls_box - 보관함 목록 정렬");
         System.out.println(" ls_del - 삭제한 목록 정렬");
         System.out.println(" return - 삭제한 일 다시 추가하기");
         

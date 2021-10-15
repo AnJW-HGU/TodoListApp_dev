@@ -52,6 +52,34 @@ public class TodoUtil {
 			System.out.println("추가되지 않았습니다.");
 		}
 	}
+	
+	public static void createBoxItem(TodoList l) {
+		
+		String title, desc;
+		Scanner sc = new Scanner(System.in);
+		Scanner sd = new Scanner(System.in);
+		
+		System.out.println("[할 일 보관함에 추가]");
+		
+		System.out.print("제목 > ");
+		title = sc.next().trim();
+		if (l.isDuplicate(title)) {
+			System.out.println("- 동일한 제목의 일이 있습니다 !");
+			return;
+		}
+		
+		System.out.print("내용 > ");
+		desc = sd.nextLine().trim();
+		
+		TodoItem t = new TodoItem(title, desc);
+		
+		if (l.addBoxItem(t) > 0) {
+			System.out.println("추가되었습니다.");
+		}
+		else {
+			System.out.println("추가되지 않았습니다.");
+		}
+	}
 
 	public static void deleteItem(TodoList l) {
 		
@@ -279,6 +307,13 @@ public class TodoUtil {
 			System.out.println(item.toString());
 		}
 		System.out.printf("총 %d개가 있습니다.\n", l.getCount(isCompleted));
+	}
+	
+	public static void listBoxAll(TodoList l) {
+		System.out.printf("[보관함 할 일, 총 %d개]\n", l.getBoxCount());
+		for (TodoItem item : l.getListBox()) {
+			System.out.println(item.toString());
+		}
 	}
 	
 	public static void listDelAll(TodoList l) {

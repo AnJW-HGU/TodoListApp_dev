@@ -28,6 +28,10 @@ public class TodoMain {
 			case "add":
 				TodoUtil.createItem(l);
 				break;
+				
+			case "add_box":
+				TodoUtil.createBoxItem(l);
+				break;
 			
 			case "del":
 				TodoUtil.deleteItem(l);
@@ -95,6 +99,10 @@ public class TodoMain {
 			case "ls_date_desc":
 				System.out.println("날짜역순으로 정렬되었습니다.");
 				TodoUtil.listAll(l, "due_date", 0);
+				break;
+				
+			case "ls_box":
+				TodoUtil.listBoxAll(l);
 				break;
 				
 			case "ls_del":

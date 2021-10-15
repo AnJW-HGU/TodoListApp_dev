@@ -50,6 +50,23 @@ public class TodoList {
 		return count;
 	}
 	
+	public int addBoxItem(TodoItem t) {
+		String sql = "insert into boxList (title, memo)"
+				+ " values (?,?);";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getTitle());
+			pstmt.setString(2, t.getDesc());
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	public int deleteItem(int index) {
 		String sql = "delete from list where id=?;";
 		PreparedStatement pstmt;
@@ -332,6 +349,28 @@ public class TodoList {
 		return list;
 	}
 	
+	public ArrayList<TodoItem> getListBox() {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM boxList";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				TodoItem t = new TodoItem(title, description);
+				t.setId(id);
+				list.add(t);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public ArrayList<TodoItem> getListDel() {
 		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
 		Statement stmt;
@@ -460,6 +499,22 @@ public class TodoList {
 		try {
 			stmt = conn.createStatement();
 			String sql = "SELECT count(id) FROM list WHERE is_completed = " + is_completed + ";";
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			count = rs.getInt("count(id)");
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int getBoxCount() {
+		Statement stmt;
+		int count = 0;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT count(id) FROM boxList;";
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			count = rs.getInt("count(id)");

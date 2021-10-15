@@ -14,6 +14,10 @@ public class TodoItem {
     private String time;
     private String place;
 
+    public TodoItem(String title, String desc) {
+    	this.title = title;
+    	this.desc = desc;
+    }
 
     public TodoItem(String cate, String title, String desc, String due_date, String time, String place){
     	this.category=cate;
@@ -108,6 +112,10 @@ public class TodoItem {
     
     public void setPlace(String place) {
     	this.place = place;
+    }
+    
+    public String toBoxString() {
+    	return id + ". " + title + " - " + desc;
     }
     
     public String toString() {
