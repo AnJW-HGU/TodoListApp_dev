@@ -36,10 +36,28 @@ public class TodoMain {
 			case "edit":
 				TodoUtil.updateItem(l);
 				break;
-				
+			
 			case "comp":
 				index = sc.nextInt();
 				TodoUtil.completeItem(l, index);
+				break;
+				
+			case "time":
+				TodoUtil.updateTime(l);
+				break;
+				
+			case "place":
+				TodoUtil.updatePlace(l);
+				break;
+				
+			case "del_time":
+				index = sc.nextInt();
+				TodoUtil.deleteTime(l, index);
+				break;
+				
+			case "del_place":
+				index = sc.nextInt();
+				TodoUtil.deletePlace(l, index);
 				break;
 				
 			case "del_comp":

@@ -15,7 +15,7 @@ public class TodoUtil {
 	
 	public static void createItem(TodoList l) {
 		
-		String category, title, desc, due_date;
+		String category, title, desc, due_date, time, place;
 		Scanner sc = new Scanner(System.in);
 		Scanner sd = new Scanner(System.in);
 		
@@ -37,7 +37,14 @@ public class TodoUtil {
 		System.out.print("마감일자 > ");
 		due_date = sc.next().trim();
 		
-		TodoItem t = new TodoItem(category, title, desc, due_date);
+		System.out.print("시간 (예: 23:30) > ");
+		time = sc.next().trim();
+	
+		System.out.print("장소 (예: 상상랩) > ");
+		place = sc.next().trim();
+		
+		TodoItem t = new TodoItem(category, title, desc, due_date, time, place);
+		
 		if (l.addItem(t) > 0) {
 			System.out.println("주가되었습니다.");
 		}
@@ -65,7 +72,7 @@ public class TodoUtil {
 
 	public static void updateItem(TodoList l) {
 		
-		String new_title, new_desc, new_category, new_due_date;
+		String new_title, new_desc, new_category, new_due_date, new_time, new_place;
 		Scanner sc = new Scanner(System.in);
 		Scanner sd = new Scanner(System.in);
 		
@@ -87,10 +94,17 @@ public class TodoUtil {
 		System.out.print("새로운 일의 내용 > ");
 		new_desc = sd.nextLine().trim();
 		
-		System.out.print("마감일자 > ");
+		System.out.print("새로운 마감일자 > ");
 		new_due_date = sc.next().trim();
+				
+		System.out.print("새로운 시간 (예: 23:30) > ");
+		new_time = sc.next().trim();
+	
+		System.out.print("새로운 장소 (예: 상상랩) > ");
+		new_place = sc.next().trim();
 		
-		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date);
+		TodoItem t = new TodoItem(new_category, new_title, new_desc, new_due_date, new_time, new_place);
+				
 		t.setId(index);
 		if (l.updateItem(t) > 0) {
 			System.out.println("수정되었습니다.");
@@ -98,6 +112,76 @@ public class TodoUtil {
 		else {
 			System.out.println("수정되지 않았습니다.");
 		}
+	}
+	
+	public static void updateTime(TodoList l) {
+		
+		String new_time;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("[시간 추가 및 수정]");
+		
+		System.out.print("시간 수정할 일의 번호 > ");
+		int index = sc.nextInt();
+		
+		System.out.print("새로운 시간 (예: 23:30) > ");
+		new_time = sc.next().trim();
+		
+		TodoItem t = new TodoItem("", "", "", "", new_time, "");
+		
+		t.setId(index);
+		if (l.updateTime(t) > 0) {
+			System.out.println("추가 및 수정되었습니다.");
+		}
+		else {
+			System.out.println("추가 및 수정되지 않았습니다.");
+		}
+	}
+	
+	public static void updatePlace(TodoList l) {
+		
+		String new_place;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("[시간 추가 및 수정]");
+		
+		System.out.print("시간 수정할 일의 번호 > ");
+		int index = sc.nextInt();
+		
+		System.out.print("새로운 장소 (예: 상상랩) > ");
+		new_place = sc.next().trim();
+		
+		TodoItem t = new TodoItem("", "", "", "", "", new_place);
+		
+		t.setId(index);
+		if (l.updatePlace(t) > 0) {
+			System.out.println("추가 및 수정되었습니다.");
+		}
+		else {
+			System.out.println("추가 및 수정되지 않았습니다.");
+		}
+	}
+	
+	public static void deleteTime(TodoList l, int index) {		
+		System.out.println("[할 일 시간 삭제]");
+
+		if (l.deleteTime(index) > 0) {
+			System.out.println("삭제되었습니다.");
+		}
+		else {
+			System.out.println("삭제되지 않았습니다.");
+		}		
+	}
+	
+	public static void deletePlace(TodoList l, int index) {		
+		System.out.println("[할 일 장소 삭제]");
+
+		if (l.deletePlace(index) > 0) {
+			System.out.println("삭제되었습니다.");
+		}
+		else {
+			System.out.println("삭제되지 않았습니다.");
+		}		
 	}
 	
 	public static void completeItem(TodoList l, int index) {		
@@ -137,10 +221,10 @@ public class TodoUtil {
 	}
 	
 	public static void listAll(TodoList l, int isCompleted) {
-		System.out.printf("[전체 완료한 일, 총 %d개]\n", l.getCount(isCompleted));
 		for (TodoItem item : l.getList(isCompleted)) {
 			System.out.println(item.toString());
 		}
+		System.out.printf("총 %d개가 있습니다.\n", l.getCount(isCompleted));
 	}
 	
 	public static void listCateAll(TodoList l) {

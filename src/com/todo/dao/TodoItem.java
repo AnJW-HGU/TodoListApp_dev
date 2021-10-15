@@ -15,13 +15,16 @@ public class TodoItem {
     private String place;
 
 
-    public TodoItem(String cate, String title, String desc, String due_date){
+    public TodoItem(String cate, String title, String desc, String due_date, String time, String place){
     	this.category=cate;
         this.title=title;
         this.desc=desc;
         this.due_date=due_date;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         this.current_date=simpleDateFormat.format(new Date());
+        this.time = time;
+        this.place = place;
+        
     }
     
     public TodoItem(String cate, String title, String desc, String due_date, String current_date, int is_completed, String time, String place){
@@ -110,10 +113,10 @@ public class TodoItem {
     public String toString() {
     	if (is_completed == 1)
     		return id + ". [" + category + "] " + title + "[V] - " + time + " (" + place + ")\n"
-    			+ "\t" + desc + " - " + due_date + " - " + current_date;
+    			+ "   " + desc + " - " + due_date + " - " + current_date;
     	else
     		return id + ". [" + category + "] " + title + " - " + time + " (" + place + ")\n"
-    			+ "\t" + desc + " - " + due_date + " - " + current_date;
+    			+ "   " + desc + " - " + due_date + " - " + current_date;
     }
     
     public String toSaveString() {
