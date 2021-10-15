@@ -59,14 +59,36 @@ public class TodoUtil {
 		
 		System.out.println("[할 일 삭제]");
 		
-		System.out.print("삭제할 일의 번호 > ");
+		System.out.print("삭제할 일의 개수 > ");
+		int count = sc.nextInt();
+		System.out.print("삭제할 일의 번호 (예: 1 7 11) > ");
+		for (int i=0; i<count; i++) {
+			int index = sc.nextInt();
+			l.addDelItem(index);
+			if (l.deleteItem(index) > 0) {
+				System.out.println(index + "번이 삭제되었습니다.");
+			}
+			else {
+				System.out.println(index + "번이 삭제되지 않았습니다.");
+			}	
+		}	
+	}
+	
+	public static void recreateItem(TodoList l) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("[삭제한 일 다시 추가]");
+		
+		System.out.print("다시 추가할 일의 번호 > ");
 		int index = sc.nextInt();
 
-		if (l.deleteItem(index) > 0) {
-			System.out.println("삭제되었습니다.");
+		if (l.readdItem(index) > 0) {
+			System.out.println("다시 추가되었습니다.");
+			l.redeleteItem(index);
 		}
 		else {
-			System.out.println("삭제되지 않았습니다.");
+			System.out.println("추가되지 않았습니다.");
 		}		
 	}
 
@@ -162,47 +184,79 @@ public class TodoUtil {
 		}
 	}
 	
-	public static void deleteTime(TodoList l, int index) {		
+	public static void deleteTime(TodoList l) {	
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("[할 일 시간 삭제]");
 
-		if (l.deleteTime(index) > 0) {
-			System.out.println("삭제되었습니다.");
-		}
-		else {
-			System.out.println("삭제되지 않았습니다.");
-		}		
+		System.out.print("시간 삭제할 일의 개수 > ");
+		int count = sc.nextInt();
+		System.out.print("시간 삭제할 일의 번호 (예: 1 7 11) > ");
+		for (int i=0; i<count; i++) {
+			int index = sc.nextInt();
+			if (l.deleteTime(index) > 0) {
+				System.out.println(index + "번이 삭제되었습니다.");
+			}
+			else {
+				System.out.println(index + "번이 삭제되지 않았습니다.");
+			}
+		}	
 	}
 	
-	public static void deletePlace(TodoList l, int index) {		
+	public static void deletePlace(TodoList l) {		
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("[할 일 장소 삭제]");
 
-		if (l.deletePlace(index) > 0) {
-			System.out.println("삭제되었습니다.");
-		}
-		else {
-			System.out.println("삭제되지 않았습니다.");
-		}		
+		System.out.print("장소 삭제할 일의 개수 > ");
+		int count = sc.nextInt();
+		System.out.print("장소 삭제할 일의 번호 (예: 1 7 11) > ");
+		for (int i=0; i<count; i++) {
+			int index = sc.nextInt();
+			if (l.deletePlace(index) > 0) {
+				System.out.println(index + "번이 삭제되었습니다.");
+			}
+			else {
+				System.out.println(index + "번이 삭제되지 않았습니다.");
+			}
+		}	
 	}
 	
-	public static void completeItem(TodoList l, int index) {		
+	public static void completeItem(TodoList l) {		
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("[할 일 완료체크]");
-
-		if (l.completeItem(index, 1) > 0) {
-			System.out.println("체크되었습니다.");
-		}
-		else {
-			System.out.println("체크되지 않았습니다.");
-		}		
+		
+		System.out.print("완료체크할 일의 개수 > ");
+		int count = sc.nextInt();
+		System.out.print("완료체크할 일의 번호 (예: 1 7 11) > ");
+		for (int i=0; i<count; i++) {
+			int index = sc.nextInt();
+			if (l.completeItem(index, 1) > 0) {
+				System.out.println(index + "번이 체크되었습니다.");
+			}
+			else {
+				System.out.println(index + "번이 체크되지 않았습니다.");
+			}	
+		}	
 	}
 	
-	public static void completeDelItem(TodoList l, int index) {		
+	public static void completeDelItem(TodoList l) {	
+		Scanner sc = new Scanner(System.in);
+
 		System.out.println("[할 일 완료체크 취소]");
 
-		if (l.completeItem(index, 0) > 0) {
-			System.out.println("체크 취소되었습니다.");
-		}
-		else {
-			System.out.println("취소되지 않았습니다.");
+		System.out.print("완료체크 취소할 일의 개수 > ");
+		int count = sc.nextInt();
+		System.out.print("완료체크 취소할 일의 번호 (예: 1 7 11) > ");
+		for (int i=0; i<count; i++) {
+			int index = sc.nextInt();
+			if (l.completeItem(index, 0) > 0) {
+				System.out.println(index + "번이 체크 취소되었습니다.");
+			}
+			else {
+				System.out.println(index + "번이 취소되지 않았습니다.");
+			}	
 		}		
 	}
 	
@@ -225,6 +279,13 @@ public class TodoUtil {
 			System.out.println(item.toString());
 		}
 		System.out.printf("총 %d개가 있습니다.\n", l.getCount(isCompleted));
+	}
+	
+	public static void listDelAll(TodoList l) {
+		System.out.printf("[삭제한 할 일, 총 %d개]\n", l.getDelCount());
+		for (TodoItem item : l.getListDel()) {
+			System.out.println(item.toString());
+		}
 	}
 	
 	public static void listCateAll(TodoList l) {
@@ -253,6 +314,26 @@ public class TodoUtil {
 		}
 		System.out.printf("총 %d개의 일을 찾았습니다.\n", count);
 	}
+	
+//	public static void importGson(TodoList l) {
+//		System.out.println("[전체 목록 파일 저장]");
+//		if (l.importGson() > 0) {
+//			System.out.println("저장되었습니다.");
+//		}
+//		else {
+//			System.out.println("저장되지 않았습니다.");
+//		}
+//	}
+//	
+//	public static void exportGson(TodoList l) {
+//		System.out.println("[전체 목록 파일 불러오기]");
+//		if (l.exportGson() > 0) {
+//			System.out.println("완료되었습니다.");
+//		}
+//		else {
+//			System.out.println("실패했습니다.");
+//		}
+//	}
 	
 //	
 //	public static void saveList(TodoList l, String filename) {

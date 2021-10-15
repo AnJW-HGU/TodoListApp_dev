@@ -11,11 +11,11 @@ public class Menu {
         
         System.out.println(" time - 시간 추가 및 수정");
         System.out.println(" place - 장소 추가 및 수정");
-        System.out.println(" comp <번호> - 할 일 완료체크");
+        System.out.println(" comp - 할 일 완료체크");
         
-        System.out.println(" del_time <번호> - 할 일 시간 삭제");
-        System.out.println(" del_place <번호> - 할 일 장소 삭제");
-        System.out.println(" del_comp <번호> - 할 일 완료체크 취소");
+        System.out.println(" del_time - 할 일 시간 삭제");
+        System.out.println(" del_place - 할 일 장소 삭제");
+        System.out.println(" del_comp - 할 일 완료체크 취소");
         
         System.out.println(" ls - 전체 목록");
         System.out.println(" ls_cate - 등록되어 있는 카테고리 출력 (중복X)");
@@ -26,8 +26,15 @@ public class Menu {
         System.out.println(" ls_date - 날짜순 정렬");
         System.out.println(" ls_date_desc - 날짜역순 정렬");
         
+        System.out.println(" ls_del - 삭제한 목록 정렬");
+        System.out.println(" return - 삭제한 일 다시 추가하기");
+        
         System.out.println(" find <키워드> - 제목과 내용에서 <키워드>를 포함한 모든 일 출력");
         System.out.println(" find_cate <키워드> - 카테고리에서 <키워드>를 포함한 모든 일 출력");
+        
+        System.out.println(" import_json - 전체 목록 파일 저장 (json형식)");
+        System.out.println(" export_json - 전체 목록 파일 불러오기 (json형식)");
+        
         System.out.println(" exit - 종료");
     }
     

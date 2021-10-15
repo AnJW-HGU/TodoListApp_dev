@@ -38,8 +38,7 @@ public class TodoMain {
 				break;
 			
 			case "comp":
-				index = sc.nextInt();
-				TodoUtil.completeItem(l, index);
+				TodoUtil.completeItem(l);
 				break;
 				
 			case "time":
@@ -51,18 +50,15 @@ public class TodoMain {
 				break;
 				
 			case "del_time":
-				index = sc.nextInt();
-				TodoUtil.deleteTime(l, index);
+				TodoUtil.deleteTime(l);
 				break;
 				
 			case "del_place":
-				index = sc.nextInt();
-				TodoUtil.deletePlace(l, index);
+				TodoUtil.deletePlace(l);
 				break;
 				
 			case "del_comp":
-				index = sc.nextInt();
-				TodoUtil.completeDelItem(l, index);
+				TodoUtil.completeDelItem(l);
 				break;
 				
 			case "ls":
@@ -100,6 +96,14 @@ public class TodoMain {
 				System.out.println("날짜역순으로 정렬되었습니다.");
 				TodoUtil.listAll(l, "due_date", 0);
 				break;
+				
+			case "ls_del":
+				TodoUtil.listDelAll(l);
+				break;
+				
+			case "return":
+				TodoUtil.recreateItem(l);
+				break;
 			
 			case "find":
 				key = sc.next().trim();
@@ -110,6 +114,14 @@ public class TodoMain {
 				key = sc.next();
 				TodoUtil.findCateList(l, key);
 				break;
+				
+//			case "import_json":
+//				TodoUtil.importGson(l);
+//				break;
+//				
+//			case "export_json":
+//				TodoUtil.exportGson(l);
+//				break;
 		
 			case "exit":
 				quit = true;

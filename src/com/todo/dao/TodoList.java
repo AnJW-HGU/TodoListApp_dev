@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.*;
+import com.google.gson.reflect.*;
+import com.google.gson.stream.*;
 import com.todo.service.DbConnect;
 
 public class TodoList {
@@ -48,6 +52,83 @@ public class TodoList {
 	
 	public int deleteItem(int index) {
 		String sql = "delete from list where id=?;";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int addDelItem(int index) {
+		Statement stmt;
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM list WHERE id = " + index;
+			ResultSet rs = stmt.executeQuery(sql);
+			String category = rs.getString("category");
+			String title = rs.getString("title");
+			String description = rs.getString("memo");
+			String due_date = rs.getString("due_date");
+			String current_date = rs.getString("current_date");
+			int is_completed = rs.getInt("is_completed");
+			String time = rs.getString("time");
+			String place = rs.getString("place");
+			TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
+			stmt.close();
+			
+			sql = "insert into deleteList (title, memo, category, current_date, due_date, time, place)"
+					+ " values (?,?,?,?,?,?,?);";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, t.getTitle());
+			pstmt.setString(2, t.getDesc());
+			pstmt.setString(3, t.getCategory());
+			pstmt.setString(4, t.getCurrent_date());
+			pstmt.setString(5, t.getDue_date());
+			pstmt.setString(6, t.getTime());
+			pstmt.setString(7, t.getPlace());
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int readdItem(int index) {
+		Statement stmt;
+		int count = 0;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM deleteList WHERE id = " + index;
+			ResultSet rs = stmt.executeQuery(sql);
+			String category = rs.getString("category");
+			String title = rs.getString("title");
+			String description = rs.getString("memo");
+			String due_date = rs.getString("due_date");
+			String current_date = rs.getString("current_date");
+			int is_completed = rs.getInt("is_completed");
+			String time = rs.getString("time");
+			String place = rs.getString("place");
+			TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
+			stmt.close();
+			
+			count = addItem(t);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int redeleteItem(int index) {
+		String sql = "delete from deleteList where id=?;";
 		PreparedStatement pstmt;
 		int count = 0;
 		try {
@@ -251,6 +332,35 @@ public class TodoList {
 		return list;
 	}
 	
+	public ArrayList<TodoItem> getListDel() {
+		ArrayList<TodoItem> list = new ArrayList<TodoItem>();
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM deleteList";
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String description = rs.getString("memo");
+				String due_date = rs.getString("due_date");
+				String current_date = rs.getString("current_date");
+				int is_completed = rs.getInt("is_completed");
+				String time = rs.getString("time");
+				String place = rs.getString("place");
+				TodoItem t = new TodoItem(category, title, description, due_date, current_date, is_completed, time, place);
+				t.setId(id);
+				t.setCurrent_date(current_date);
+				list.add(t);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public ArrayList<String> getCategories() {
 		ArrayList<String> list = new ArrayList<String>();
 		Statement stmt;
@@ -359,6 +469,22 @@ public class TodoList {
 		}
 		return count;
 	}
+
+	public int getDelCount() {
+		Statement stmt;
+		int count = 0;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT count(id) FROM deleteList;";
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			count = rs.getInt("count(id)");
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 	
 	public Boolean isDuplicate(String title) {
 		for (TodoItem item : getList()) {
@@ -366,6 +492,20 @@ public class TodoList {
 		}
 		return false;
 	}
+	
+//	public int importGson() {
+//		List<TodoItem> list = getList();
+//		Gson gson = new Gson();
+//		String jsonDate = new gson.toJson(list);
+//		
+//		int count = 0;
+//		try {
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return count;
+//	}
    
 //   public void importData(String filename) {
 //      try {
