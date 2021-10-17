@@ -105,12 +105,16 @@ public class TodoMain {
 				TodoUtil.listBoxAll(l);
 				break;
 				
+			case "setting":
+				TodoUtil.recreateBoxItem(l);
+				break;
+				
 			case "ls_del":
 				TodoUtil.listDelAll(l);
 				break;
 				
 			case "return":
-				TodoUtil.recreateItem(l);
+				TodoUtil.recreateDelItem(l);
 				break;
 			
 			case "find":

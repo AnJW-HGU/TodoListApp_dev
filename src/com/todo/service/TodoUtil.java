@@ -102,7 +102,46 @@ public class TodoUtil {
 		}	
 	}
 	
-	public static void recreateItem(TodoList l) {
+	public static void recreateBoxItem(TodoList l) {
+		
+		String category, due_date, time, place;
+		Scanner sc = new Scanner(System.in);
+		Scanner sd = new Scanner(System.in);
+		
+		System.out.println("[보관함에 있는 일 다시 추가]");
+		
+		System.out.print("다시 추가할 일의 번호 > ");
+		int index = sc.nextInt();
+		TodoItem boxItem = l.readBoxItem(index);
+		
+		System.out.println("[할 일 추가]");
+		
+		System.out.print("카테고리 > ");
+		category = sc.next().trim();
+		
+		System.out.print("마감일자 > ");
+		due_date = sc.next().trim();
+		
+		System.out.print("시간 (예: 23:30) > ");
+		time = sc.next().trim();
+	
+		System.out.print("장소 (예: 상상랩) > ");
+		place = sc.next().trim();
+		
+		TodoItem t = new TodoItem(category, "", "", due_date, time, place);
+		t.setTitle(boxItem.getTitle());
+		t.setDesc(boxItem.getDesc());
+		
+		if (l.addItem(t) > 0) {
+			System.out.println("다시 추가되었습니다.");
+			l.redeleteBoxItem(index);
+		}
+		else {
+			System.out.println("추가되지 않았습니다.");
+		}		
+	}
+	
+	public static void recreateDelItem(TodoList l) {
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -110,10 +149,10 @@ public class TodoUtil {
 		
 		System.out.print("다시 추가할 일의 번호 > ");
 		int index = sc.nextInt();
-
-		if (l.readdItem(index) > 0) {
+		
+		if (l.readdDelItem(index) > 0) {
 			System.out.println("다시 추가되었습니다.");
-			l.redeleteItem(index);
+			l.redeleteDelItem(index);
 		}
 		else {
 			System.out.println("추가되지 않았습니다.");
@@ -312,10 +351,10 @@ public class TodoUtil {
 	public static void listBoxAll(TodoList l) {
 		System.out.printf("[보관함 할 일, 총 %d개]\n", l.getBoxCount());
 		for (TodoItem item : l.getListBox()) {
-			System.out.println(item.toString());
+			System.out.println(item.toBoxString());
 		}
 	}
-	
+
 	public static void listDelAll(TodoList l) {
 		System.out.printf("[삭제한 할 일, 총 %d개]\n", l.getDelCount());
 		for (TodoItem item : l.getListDel()) {

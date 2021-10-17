@@ -28,8 +28,9 @@ public class Menu {
         System.out.println(" ls_date_desc - 날짜역순 정렬");
         
         System.out.println(" ls_box - 보관함 목록 정렬");
+        System.out.println(" setting - 보관함에 있는 할 일 추가");
         System.out.println(" ls_del - 삭제한 목록 정렬");
-        System.out.println(" return - 삭제한 일 다시 추가하기");
+        System.out.println(" return - 삭제한 일 다시 추가");
         
         System.out.println(" find <키워드> - 제목과 내용에서 <키워드>를 포함한 모든 일 출력");
         System.out.println(" find_cate <키워드> - 카테고리에서 <키워드>를 포함한 모든 일 출력");

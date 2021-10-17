@@ -67,21 +67,6 @@ public class TodoList {
 		return count;
 	}
 	
-	public int deleteItem(int index) {
-		String sql = "delete from list where id=?;";
-		PreparedStatement pstmt;
-		int count = 0;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, index);
-			count = pstmt.executeUpdate();
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return count;
-	}
-	
 	public int addDelItem(int index) {
 		Statement stmt;
 		PreparedStatement pstmt;
@@ -119,7 +104,7 @@ public class TodoList {
 		return count;
 	}
 	
-	public int readdItem(int index) {
+	public int readdDelItem(int index) {
 		Statement stmt;
 		int count = 0;
 		try {
@@ -144,7 +129,37 @@ public class TodoList {
 		return count;
 	}
 	
-	public int redeleteItem(int index) {
+	public int deleteItem(int index) {
+		String sql = "delete from list where id=?;";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int redeleteBoxItem(int index) {
+		String sql = "delete from boxList where id=?;";
+		PreparedStatement pstmt;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, index);
+			count = pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public int redeleteDelItem(int index) {
 		String sql = "delete from deleteList where id=?;";
 		PreparedStatement pstmt;
 		int count = 0;
@@ -260,6 +275,23 @@ public class TodoList {
 			e.printStackTrace();
 		}
 		return count;
+	}
+	
+	public TodoItem readBoxItem(int index) {
+		TodoItem t = new TodoItem("", "");
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String sql = "SELECT * FROM boxList WHERE id = " + index;
+			ResultSet rs = stmt.executeQuery(sql);
+			String title = rs.getString("title");
+			String description = rs.getString("memo");
+			t = new TodoItem(title, description);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return t;
 	}
 	
 	public ArrayList<TodoItem> getList() {
